@@ -1,13 +1,13 @@
-import ChannelModel from '../model/channelModel'
+import { channelSchema } from "../model/channelModel"
 
 export const createChannels = async () => {
-    const channelsToCreate = [
-        { name: 'Channel 1', messages: [] },
-        { name: 'Channel 2', messages: [] },
-        { name: 'Channel 3', messages: [] },
-        { name: 'Channel 4', messages: [] },
-        { name: 'Channel 5', messages: [] },
-    ]
+    await channelSchema.create(
+        { name: 'Channel 1' },
+        { name: 'Channel 2' },
+        { name: 'Channel 3' },
+        { name: 'Channel 4' },
+        { name: 'Channel 5' },
+    )
 
-    await ChannelModel.insertMany(channelsToCreate);
+    console.log('Channels created')
 }

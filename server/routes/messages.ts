@@ -1,31 +1,37 @@
 import express, { Request, Response } from 'express'
-import MessageModel from '../model/messageModel'
+import { messageSchema, channelSchema } from '../model/channelModel'
 import cors from 'cors'
 
 const router = express.Router()
 
-router.get('/', cors(), async (req: Request, res: Response) => {
-    const messages = await MessageModel.find()
+router.get('/messages', cors(), async (req: Request, res: Response) => {
+    const messages = await messageSchema.find()
     res.json(messages)
 })
 
 router
-    .route('/:id')
+    .route('/messages/:channelId')
     .get(async (req: Request, res: Response) => {
-        const messages = await MessageModel.findById(req.params.id)
-        res.json(messages)
+        const { channelId } = req.params
+        if (channelId.length !== 24) {
+            res.send("Invalid channel ID")
+        } else {
+            const messages = await messageSchema.find({ channel_id: channelId })
+            res.json(messages)
+        }
     })
 
-router.post('/', cors(), (req: Request, res: Response) => {
-    const message = new MessageModel({
-        channel_id: req.body.channel_id,
+router.post('/:channelId', cors(), async (req: Request, res: Response) => {
+    const { channelId } = req.params
+    const newMessage = new messageSchema({
+        channel_id: channelId,
         message: req.body.message
     })
-    message.save().then(function () {
-        return res.status(201).json(message)
-    }).catch((error) => {
-        console.log('error', error)
+    await newMessage.save()
+    await channelSchema.findByIdAndUpdate(channelId, {
+        $push: { messages: newMessage._id }
     })
+    return res.status(201).json(newMessage)
 })
 
 export default router

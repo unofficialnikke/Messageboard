@@ -2,17 +2,21 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const channelSchema = new Schema({
-    name: {
-        type: String,
+const messageSchema = mongoose.model('Message', new Schema({
+    message: String,
+    channel_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Channel',
         required: true
     },
-    messages: {
-        type: [],
-        required: false
-    }
-},
-    { versionKey: false }
-)
+}))
 
-export default mongoose.model('Channel', channelSchema)
+const channelSchema = mongoose.model('Channel', new Schema({
+    name: String,
+    messages: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Message'
+    }]
+}))
+
+export { channelSchema, messageSchema }
