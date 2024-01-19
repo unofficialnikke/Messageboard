@@ -8,5 +8,6 @@ export const createChannels = async () => {
         { name: 'Channel 4', messages: [] },
         { name: 'Channel 5', messages: [] },
     ]
+
     await ChannelModel.insertMany(channelsToCreate);
 }
