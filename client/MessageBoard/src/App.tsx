@@ -1,10 +1,10 @@
-import NavBar from "./components/NavBar"
+import Channel from "./Components/Messageboard"
 
 export default function App() {
 
   return (
     <>
-      <NavBar />
+      <Channel />
     </>
   )
 }

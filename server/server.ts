@@ -1,10 +1,12 @@
 import express from 'express'
+import cors from 'cors'
 import channelRouter from './routes/channels'
 import messageRouter from './routes/messages'
 import connect from './index'
 
 const app = express()
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use('/channels', channelRouter)
@@ -15,7 +17,7 @@ connect().then(async () => {
         console.log('Server started on port 5000')
     })
 }).catch((error) => {
-    console.log('Invalid database connection')
+    console.log('Invalid database connection', error)
 })
 
 
