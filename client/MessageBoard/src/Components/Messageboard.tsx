@@ -1,14 +1,13 @@
-import { Box, Button, Divider, Grid, Stack, TextField, Typography } from "@mui/material"
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
+import { Box, Button, Divider, Stack, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
-import { getAllChannels, getMessageById, addNewMessage } from "./Request"
+import { getAllChannels, getChannelById, getMessageById, addNewMessage } from "./Request"
 import { ChannelType, MessageType } from "../type"
 
 export default function Channel() {
     const [channels, setChannels] = useState<ChannelType[]>([])
     const [messages, setMessages] = useState<MessageType[]>([])
     const [selectedChannelId, setSelectedChannelId] = useState<String>('')
+    const [currentChannel, setCurrentChannel] = useState<String>('')
     const initialFormState: MessageType = {
         message: '',
         channel_id: ''
@@ -19,7 +18,6 @@ export default function Channel() {
         const fetchData = async () => {
             const newChannels = await getAllChannels()
             setChannels(newChannels)
-            console.log(newChannels)
         }
         fetchData()
     }, [])
@@ -27,8 +25,13 @@ export default function Channel() {
     const getChannelMessages = async (channelId: String) => {
         setSelectedChannelId(channelId)
         setMessages(await getMessageById(channelId))
+        getChannelName(channelId)
         setNewMessage({ ...newMessage, message: String('') })
-        console.log(channelId)
+    }
+
+    const getChannelName = async (id: String) => {
+        const newCurrentChannel = await getChannelById(id)
+        setCurrentChannel(newCurrentChannel)
     }
 
     const addMessage = async () => {
@@ -42,23 +45,21 @@ export default function Channel() {
     return (
         <>
             <Stack alignItems='center'>
-                <List>
-                    <Grid sx={{ flexGrow: 1 }} container spacing={2}>
-                        <Grid item xs={12}>
-                            <Grid container justifyContent="center">
-                                {channels.map((channel, index) => (
-                                    <ListItemButton
-                                        key={index} onClick={() => getChannelMessages(channel._id)}>
-                                        <Typography>{channel.name}</Typography>
-                                    </ListItemButton>
-                                ))}
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </List>
+                <Stack justifyContent="center" direction='row' spacing={1} marginBottom={2}>
+                    {channels.map((channel, index) => (
+                        <Button
+                            variant='outlined' size='large'
+                            key={index} onClick={() => getChannelMessages(channel._id)}>
+                            <Typography>{channel.name}</Typography>
+                        </Button>
+                    ))}
+                </Stack>
                 <Stack width={350} spacing={1}>
+                    {currentChannel && (
+                        <Typography textAlign='center'>Currently in {currentChannel}</Typography>
+                    )}
                     {selectedChannelId === '' ? (
-                        <Typography>Select channel to type messages.</Typography>
+                        <Typography textAlign='center'>Select channel to type messages.</Typography>
                     ) : (
                         <Box display='flex' justifyContent='center' marginBottom={1}>
                             <TextField
@@ -73,7 +74,7 @@ export default function Channel() {
                     )}
                     {selectedChannelId !== '' && messages.length === 0 ? (
                         <Typography textAlign='center'>
-                            No messages yet in this Channel.
+                            No messages in this channel yet.
                         </Typography>
                     ) : (
                         messages.map((m, index) => (

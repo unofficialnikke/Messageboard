@@ -11,13 +11,23 @@ export const getAllChannels = async () => {
     }
 }
 
+export const getChannelById = async (id: String) => {
+    try {
+        const response = await fetch(`${API_URL}/channels/${id}`)
+        const data = await response.json()
+        return data.name
+    } catch (err) {
+        console.log('Error getting channel', err)
+    }
+}
+
 export const getMessageById = async (channelId: String) => {
     try {
         const response = await fetch(`${API_URL}/messages/${channelId}`)
         const data = await response.json()
         return data
     } catch (err) {
-        console.log('Error getting messages', err)
+        console.log('Error getting message', err)
     }
 }
 
