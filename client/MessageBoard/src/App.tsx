@@ -1,4 +1,4 @@
-import Channel from "./Components/Messageboard"
+import Channel from "./components/Messageboard"
 
 export default function App() {
 

@@ -68,8 +68,8 @@ export default function Channel() {
                                 value={newMessage.message}
                                 onChange={e =>
                                     setNewMessage({ ...newMessage, message: String(e.target.value) })}
-                                placeholder='add new message..'></TextField>
-                            <Button style={{ marginLeft: '5px' }} disabled={newMessage.message === '' ? true : false} onClick={() => addMessage()} variant='contained'>Add</Button>
+                                placeholder='type new message...'></TextField>
+                            <Button style={{ marginLeft: '5px' }} disabled={newMessage.message === '' ? true : false} onClick={() => addMessage()} variant='contained'>Submit</Button>
                         </Box>
                     )}
                     {selectedChannelId !== '' && messages.length === 0 ? (
@@ -77,9 +77,9 @@ export default function Channel() {
                             No messages in this channel yet.
                         </Typography>
                     ) : (
-                        messages.map((m, index) => (
+                        messages.map((message, index) => (
                             <Stack key={index}>
-                                <Typography style={{ whiteSpace: 'normal', overflow: 'hidden' }}>{m.message}</Typography>
+                                <Typography>{message.message}</Typography>
                                 <Divider />
                             </Stack>
                         ))
