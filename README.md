@@ -1,7 +1,7 @@
 ## Message board Full Stack application (prototype)
 
 This prototype of message board consists of client and server. Frontend is developed with React with vite.js and backend with Express.js. 
-Whole implementation is coded with TypeScript. Backend is implemented with Mongoose using the in-memory database MongoMemoryServer.
+Whole implementation is coded with TypeScript. Database is implemented with Mongoose in-memory database using MongoMemoryServer.
 
 Features:
 - User can view and access to all channels that exist by default
