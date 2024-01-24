@@ -1,3 +1,5 @@
+##Message board Full Stack application (prototype)
+
 This prototype of message board cosnsists of client and server. Frontend is developed with React with vite.js and backend with Express.js. 
 Whole implementation is coded with TypeScript.
 
