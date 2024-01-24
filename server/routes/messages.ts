@@ -1,10 +1,9 @@
 import express, { Request, Response } from 'express'
 import { messageSchema, channelSchema } from '../model/channelModel'
-import cors from 'cors'
 
 const router = express.Router()
 
-router.get('/messages', cors(), async (req: Request, res: Response) => {
+router.get('/messages', async (req: Request, res: Response) => {
     const messages = await messageSchema.find()
     res.json(messages)
 })
@@ -21,7 +20,7 @@ router
         }
     })
 
-router.post('/:channelId', cors(), async (req: Request, res: Response) => {
+router.post('/:channelId', async (req: Request, res: Response) => {
     const { channelId } = req.params
     const newMessage = new messageSchema({
         channel_id: channelId,

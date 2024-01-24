@@ -1,10 +1,9 @@
-import express, { Express, Request, Response } from 'express'
+import express, { Request, Response } from 'express'
 import { channelSchema } from '../model/channelModel'
-import cors from 'cors'
 
 const router = express.Router()
 
-router.get('/', cors(), async (req, res) => {
+router.get('/', async (req, res) => {
     const channels = await channelSchema.find()
     res.json(channels)
 })
