@@ -9,9 +9,11 @@ Whole implementation is coded with TypeScript. Database is implemented with Mong
 - User can submit new messages to the specific channel
 
 ### Endpoints:
-- All Channels can be fetched with {Api_Url}/channels or by id {Api_Url}/channels/{id}
-- All messages can be fetched with {Api_Url}/messages or by channel_id {Api_Url}/messages/{channel_id}
-- New messages can be submitted wit post request to {Api_Url}/{channel_id}
+- Get all Channels: {Api_Url}/channels
+- Get Channel by Id:  {Api_Url}/channels/{id}
+- Get all Messages: {Api_Url}/messages
+- Get Message by channel_id: {Api_Url}/messages/{channel_id}
+- Submit new messages to the channel: {Api_Url}/{channel_id}
 
 Requirements have been carefully followed. Please, notice that for example, editor panel is hidden is channel is not selected or submit button 
 is disabled if textfield input is empty.
