@@ -6,8 +6,8 @@ import { ChannelType, MessageType } from "../type"
 export default function Channel() {
     const [channels, setChannels] = useState<ChannelType[]>([])
     const [messages, setMessages] = useState<MessageType[]>([])
-    const [selectedChannelId, setSelectedChannelId] = useState<String>('')
-    const [currentChannel, setCurrentChannel] = useState<String>('')
+    const [selectedChannelId, setSelectedChannelId] = useState<string>('')
+    const [currentChannel, setCurrentChannel] = useState<string>('')
     const initialFormState: MessageType = {
         message: '',
         channel_id: ''
@@ -22,14 +22,14 @@ export default function Channel() {
         fetchData()
     }, [])
 
-    const getChannelMessages = async (channelId: String) => {
+    const getChannelMessages = async (channelId: string) => {
         setSelectedChannelId(channelId)
         setMessages(await getMessageById(channelId))
         getChannelName(channelId)
         setNewMessage({ ...newMessage, message: String('') })
     }
 
-    const getChannelName = async (id: String) => {
+    const getChannelName = async (id: string) => {
         const newCurrentChannel = await getChannelById(id)
         setCurrentChannel(newCurrentChannel)
     }

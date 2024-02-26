@@ -1,10 +1,10 @@
 export type MessageType = {
-    message: String,
-    channel_id: String
+    message: string,
+    channel_id: string
 }
 
 export type ChannelType = {
-    _id: String
-    name: String
+    _id: string
+    name: string
     messages: MessageType
 }

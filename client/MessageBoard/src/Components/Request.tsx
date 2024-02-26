@@ -11,7 +11,7 @@ export const getAllChannels = async () => {
     }
 }
 
-export const getChannelById = async (id: String) => {
+export const getChannelById = async (id: string) => {
     try {
         const response = await fetch(`${API_URL}/channels/${id}`)
         const data = await response.json()
@@ -21,7 +21,7 @@ export const getChannelById = async (id: String) => {
     }
 }
 
-export const getMessageById = async (channelId: String) => {
+export const getMessageById = async (channelId: string) => {
     try {
         const response = await fetch(`${API_URL}/messages/${channelId}`)
         const data = await response.json()
@@ -31,7 +31,7 @@ export const getMessageById = async (channelId: String) => {
     }
 }
 
-export const addNewMessage = async (newMessage: MessageType, channelId: String) => {
+export const addNewMessage = async (newMessage: MessageType, channelId: string) => {
     const requestConfig: RequestInit = {
         method: 'POST',
         headers: {
